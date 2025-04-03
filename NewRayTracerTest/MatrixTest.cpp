@@ -446,7 +446,7 @@ namespace MatrixTest
 			Matrix transform = translation(5.0f, -3.0f, 2.0f);
 			Point point(-3.0f, 4.0f, 5.0f);
 
-			Assert::IsTrue(Tuple(2.0f, 1.0f, 7.0f, 1.0f) == transform * point);
+			Assert::IsTrue(Point(2.0f, 1.0f, 7.0f) == transform * point);
 		}
 
 		TEST_METHOD(TestTranslationMatrixInverse)

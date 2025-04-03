@@ -7,6 +7,7 @@ class Vector :
 {
 public:
     Vector(float const &newX, float const &newY, float const &newZ) : Tuple(newX, newY, newZ, 0.0f) {}
+	Vector(Tuple const& tuple) : Tuple(tuple.getX(), tuple.getY(), tuple.getZ(), 0.0f) {}
 
     Vector operator+(Vector const &vector) const { return Vector(x + vector.getX(), y + vector.getY(), z + vector.getZ()); }
 

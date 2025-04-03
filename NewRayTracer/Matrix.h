@@ -34,3 +34,84 @@ public:
 	bool isInvertible() const { return determinant() != 0.0f; }
 	Matrix inverse() const;
 };
+
+static Matrix identity(int const& size)
+{
+	Matrix result(size, size);
+
+	for (int i = 0; i < size; i++) { result.set(i, i, 1.0f); }
+
+	return result;
+}
+
+static Matrix translation(float const& x, float const& y, float const& z)
+{
+	Matrix result = identity(4);
+
+	result.set(0, 3, x);
+	result.set(1, 3, y);
+	result.set(2, 3, z);
+
+	return result;
+}
+
+static Matrix scaling(float const& x, float const& y, float const& z)
+{
+	Matrix result = identity(4);
+
+	result.set(0, 0, x);
+	result.set(1, 1, y);
+	result.set(2, 2, z);
+
+	return result;
+}
+
+static Matrix rotationX(float const& radians)
+{
+	Matrix result = identity(4);
+
+	result.set(1, 1, cos(radians));
+	result.set(1, 2, -sin(radians));
+	result.set(2, 1, sin(radians));
+	result.set(2, 2, cos(radians));
+
+	return result;
+}
+
+static Matrix rotationY(float const& radians)
+{
+	Matrix result = identity(4);
+
+	result.set(0, 0, cos(radians));
+	result.set(0, 2, sin(radians));
+	result.set(2, 0, -sin(radians));
+	result.set(2, 2, cos(radians));
+
+	return result;
+}
+
+static Matrix rotationZ(float const& radians)
+{
+	Matrix result = identity(4);
+
+	result.set(0, 0, cos(radians));
+	result.set(0, 1, -sin(radians));
+	result.set(1, 0, sin(radians));
+	result.set(1, 1, cos(radians));
+
+	return result;
+}
+
+static Matrix shearing(float const& xy, float const& xz, float const& yx, float const& yz, float const& zx, float const& zy)
+{
+	Matrix result = identity(4);
+
+	result.set(0, 1, xy);
+	result.set(0, 2, xz);
+	result.set(1, 0, yx);
+	result.set(1, 2, yz);
+	result.set(2, 0, zx);
+	result.set(2, 1, zy);
+
+	return result;
+}

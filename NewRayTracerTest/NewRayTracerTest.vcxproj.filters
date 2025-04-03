@@ -36,6 +36,15 @@
     <ClCompile Include="MatrixTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RayTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SphereTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IntersectionsTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">

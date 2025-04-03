@@ -129,19 +129,29 @@
   <ItemGroup>
     <ClCompile Include="Canvas.cpp" />
     <ClCompile Include="Colour.cpp" />
+    <ClCompile Include="Intersection.cpp" />
+    <ClCompile Include="Intersections.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="PPMWriter.cpp" />
+    <ClCompile Include="Ray.cpp" />
+    <ClCompile Include="Shape.cpp" />
+    <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Tuple.cpp" />
     <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Canvas.h" />
     <ClInclude Include="Colour.h" />
+    <ClInclude Include="Intersection.h" />
+    <ClInclude Include="Intersections.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="PPMWriter.h" />
+    <ClInclude Include="Ray.h" />
+    <ClInclude Include="Shape.h" />
+    <ClInclude Include="Sphere.h" />
     <ClInclude Include="Tuple.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
