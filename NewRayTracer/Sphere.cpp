@@ -20,3 +20,15 @@ void Sphere::intersect(Ray const& ray, vector<Intersection>& xs) const
 		xs.push_back(Intersection(t2, shared_from_this()));
 	}
 }
+
+Vector Sphere::normalAt(Point const& point) const
+{
+	Vector objectPoint = getTransform().inverse() * point;
+
+	Vector objectNormal = objectPoint - center;
+
+	Vector worldNormal = getTransform().inverse().transpose() * objectNormal;
+	worldNormal.setW(0.0f);
+
+	return worldNormal.normalise();
+}

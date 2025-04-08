@@ -131,9 +131,12 @@
     <ClCompile Include="Colour.cpp" />
     <ClCompile Include="Intersection.cpp" />
     <ClCompile Include="Intersections.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Material.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Point.cpp" />
+    <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="PPMWriter.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="Shape.cpp" />
@@ -146,8 +149,11 @@
     <ClInclude Include="Colour.h" />
     <ClInclude Include="Intersection.h" />
     <ClInclude Include="Intersections.h" />
+    <ClInclude Include="Light.h" />
+    <ClInclude Include="Material.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Point.h" />
+    <ClInclude Include="PointLight.h" />
     <ClInclude Include="PPMWriter.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Shape.h" />

@@ -25,5 +25,7 @@ public:
 	float dot(Vector const &vector) const { return (x * vector.getX() + y * vector.getY() + z * vector.getZ()); }
 
 	Vector cross(Vector const &vector) const { return Vector(y * vector.getZ() - z * vector.getY(), z * vector.getX() - x * vector.getZ(), x * vector.getY() - y * vector.getX()); }
+
+	Vector reflect(Vector const& normal) const;
 };
 

@@ -22,4 +22,5 @@ public:
 	float getRadius() const override { return radius; }
 
 	void intersect(Ray const& ray, vector<Intersection>& xs) const;
+	Vector normalAt(Point const& point) const override;
 };

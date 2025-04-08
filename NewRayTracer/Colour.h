@@ -7,6 +7,7 @@ private:
 	float g;
 	float b;
 public:
+	Colour() : r(0.0f), g(0.0f), b(0.0f) {}
 	Colour(float const &newR, float const &newG, float const &newB) : r(newR), g(newG), b(newB) {}
 
 	Colour operator+(Colour const &colour) const { return Colour(r + colour.getR(), g + colour.getG(), b + colour.getB()); }

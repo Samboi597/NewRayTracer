@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "Vector.h"
+#include "Vector.cpp"
 #include "Point.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -147,6 +147,28 @@ namespace VectorTest
 			Assert::AreEqual(1.0f, cross2.getX(), EPSILON_TEST);
 			Assert::AreEqual(-2.0f, cross2.getY(), EPSILON_TEST);
 			Assert::AreEqual(1.0f, cross2.getZ(), EPSILON_TEST);
+		}
+
+		TEST_METHOD(TestVectorReflect)
+		{
+			Vector vector(1.0f, -1.0f, 0.0f);
+			Vector normal(0.0f, 1.0f, 0.0f);
+
+			Vector reflected = vector.reflect(normal);
+
+			Assert::AreEqual(1.0f, reflected.getX(), EPSILON_TEST);
+			Assert::AreEqual(1.0f, reflected.getY(), EPSILON_TEST);
+			Assert::AreEqual(0.0f, reflected.getZ(), EPSILON_TEST);
+		}
+
+		TEST_METHOD(TestVectorReflectOffSlantedSurface)
+		{
+			Vector vector(0.0f, -1.0f, 0.0f);
+			Vector normal(sqrt(2.0f) / 2.0f, sqrt(2.0f) / 2.0f, 0.0f);
+			Vector reflected = vector.reflect(normal);
+			Assert::AreEqual(1.0f, reflected.getX(), EPSILON_TEST);
+			Assert::AreEqual(0.0f, reflected.getY(), EPSILON_TEST);
+			Assert::AreEqual(0.0f, reflected.getZ(), EPSILON_TEST);
 		}
 	};
 }

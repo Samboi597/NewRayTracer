@@ -159,6 +159,7 @@
     <ClCompile Include="CanvasTest.cpp" />
     <ClCompile Include="ColourTest.cpp" />
     <ClCompile Include="IntersectionsTest.cpp" />
+    <ClCompile Include="MaterialTest.cpp" />
     <ClCompile Include="MatrixTest.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -166,6 +167,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PointLightTest.cpp" />
     <ClCompile Include="PointTest.cpp" />
     <ClCompile Include="PPMWriterTest.cpp" />
     <ClCompile Include="RayTest.cpp" />
@@ -173,6 +175,7 @@
     <ClCompile Include="VectorTest.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MaterialTest.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
