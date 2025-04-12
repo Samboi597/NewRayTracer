@@ -21,9 +21,7 @@ namespace CanvasTest
 			{
 				for (int j = 0; j < canvas.getWidth(); j++)
 				{
-					Assert::AreEqual(0.0f, canvas.getPixelColour(j, i).getR(), EPSILON_TEST);
-					Assert::AreEqual(0.0f, canvas.getPixelColour(j, i).getG(), EPSILON_TEST);
-					Assert::AreEqual(0.0f, canvas.getPixelColour(j, i).getB(), EPSILON_TEST);
+					Assert::IsTrue(canvas.getPixelColour(j, i) == Colour(0.0f, 0.0f, 0.0f));
 				}
 			}
 		}
@@ -35,9 +33,7 @@ namespace CanvasTest
 
 			canvas.setPixelColour(2, 3, red);
 
-			Assert::AreEqual(1.0f, canvas.getPixelColour(2, 3).getR(), EPSILON_TEST);
-			Assert::AreEqual(0.0f, canvas.getPixelColour(2, 3).getG(), EPSILON_TEST);
-			Assert::AreEqual(0.0f, canvas.getPixelColour(2, 3).getB(), EPSILON_TEST);
+			Assert::IsTrue(canvas.getPixelColour(2, 3) == red);
 		}
 	};
 }

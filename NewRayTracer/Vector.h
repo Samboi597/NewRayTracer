@@ -6,6 +6,7 @@ class Vector :
     public Tuple
 {
 public:
+	Vector() : Tuple(0.0f, 0.0f, 0.0f, 0.0f) {}
     Vector(float const &newX, float const &newY, float const &newZ) : Tuple(newX, newY, newZ, 0.0f) {}
 	Vector(Tuple const& tuple) : Tuple(tuple.getX(), tuple.getY(), tuple.getZ(), 0.0f) {}
 

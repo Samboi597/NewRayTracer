@@ -1,10 +1,8 @@
 #pragma once
 
 #include "Light.h"
-#include "Point.h"
 
-class PointLight :
-    public Light
+class PointLight : public Light
 {
 private:
     Point position;
@@ -12,6 +10,5 @@ private:
 public:
     PointLight(Point const& newPosition, Colour const& newIntensity) : position(newPosition), Light(newIntensity) {}
 
-	Point getPosition() const { return position; }
+    Point getPosition() override { return position; }
 };
-

@@ -1,9 +1,11 @@
 #include <iostream>
 #include "Point.h"
+#include "Camera.h"
 #include "Canvas.h"
 #include "Intersections.h"
 #include "PointLight.h"
 #include "PPMWriter.h"
+#include "Scene.h"
 #include "Sphere.h"
 
 float const PI = 3.14159265358979323846f;
@@ -11,51 +13,55 @@ float const PI = 3.14159265358979323846f;
 using namespace std;
 
 int main() {
-	Canvas canvas(400, 400);
 	PPMWriter writer;
+	Scene scene;
 
-	float pixelSize = 7.0f / canvas.getWidth();
-	float half = 3.5f;
+	vector<shared_ptr<Shape>> shapes;
+	vector<shared_ptr<Light>> lights;
 
-	shared_ptr<Sphere> sphere = make_shared<Sphere>();
-	sphere->setMaterial(Material(Colour(1.0f, 0.2f, 1.0f), 0.1f, 0.9f, 0.9f, 200.0f));
+	Material floorMaterial(Colour(1.0f, 0.9f, 0.9f), 0.1f, 0.9f, 0.0f, 200.0f);
 
-	Point lightPosition(-10.0f, 10.0f, -10.0f);
-	Colour lightIntensity(1.0f, 1.0f, 1.0f);
-	PointLight light(lightPosition, lightIntensity);
+	Sphere floor;
+	floor.setTransform(scaling(10.0f, 0.01, 10.0f));
+	floor.setMaterial(floorMaterial);
+	shapes.push_back(make_shared<Sphere>(floor));
 
-	Point origin(0.0f, 0.0f, -5.0f);
+	Sphere leftWall;
+	leftWall.setTransform(translation(0.0f, 0.0f, 5.0f) * rotationY(-PI / 4) * rotationX(PI / 2) * scaling(10.0f, 0.01f, 10.0f));
+	leftWall.setMaterial(floorMaterial);
+	shapes.push_back(make_shared<Sphere>(leftWall));
 
-	for (int y = 0; y < canvas.getHeight(); y++) {
-		float worldY = half - pixelSize * y;
+	Sphere rightWall;
+	rightWall.setTransform(translation(0.0f, 0.0f, 5.0f) * rotationY(PI / 4) * rotationX(PI / 2) * scaling(10.0f, 0.01f, 10.0f));
+	rightWall.setMaterial(floorMaterial);
+	shapes.push_back(make_shared<Sphere>(rightWall));
 
-		for (int x = 0; x < canvas.getWidth(); x++) {
-			float worldX = -half + pixelSize * x;
-			
-			Point point(worldX, worldY, 10.0f);
+	Sphere middle;
+	middle.setTransform(translation(-0.5f, 1.0f, 0.5f));
+	middle.setMaterial(Material(Colour(0.1f, 1.0f, 0.5f), 0.1f, 0.7f, 0.3f, 200.0f));
+	shapes.push_back(make_shared<Sphere>(middle));
 
-			Ray ray(origin, Vector(point - origin).normalise());
+	Sphere right;
+	right.setTransform(translation(1.5f, 0.5f, -0.5f) * scaling(0.5f, 0.5f, 0.5f));
+	right.setMaterial(Material(Colour(0.5f, 1.0f, 0.1f), 0.1f, 0.7f, 0.3f, 200.0f));
+	shapes.push_back(make_shared<Sphere>(right));
 
-			vector<Intersection> iVec;
+	Sphere left;
+	left.setTransform(translation(-1.5f, 0.33f, -0.75f) * scaling(0.33f, 0.33f, 0.33f));
+	left.setMaterial(Material(Colour(1.0f, 0.8f, 0.1f), 0.1f, 0.7f, 0.3f, 200.0f));
+	shapes.push_back(make_shared<Sphere>(left));
 
-			sphere->intersect(ray, iVec);
+	scene.setShapes(shapes);
 
-			Intersections xs(iVec);
+	PointLight light(Point(-10.0f, 10.0f, -10.0f), Colour(1.0f, 1.0f, 1.0f));
+	lights.push_back(make_shared<PointLight>(light));
 
-			if (xs.getHit().getT() > 0.0f) {
-				Intersection hit = xs.getHit();
-				Point hitPoint = ray.position(hit.getT());
-				Vector normal = sphere->normalAt(hitPoint);
-				Vector eye = -ray.getDirection();
+	scene.setLights(lights);
 
-				Colour colour = sphere->getMaterial().lighting(light.getPosition(), light.getIntensity(), hitPoint, eye, normal);
+	Camera camera(100, 50, PI / 3);
+	camera.setTransform(viewTransform(Point(0.0f, 1.5f, -5.0f), Point(0.0f, 1.0f, 0.0f), Vector(0.0f, 1.0f, 0.0f)));
 
-				std::cout << "Drawing pixel colour (" << colour.getR() << ", " << colour.getG() << ", " << colour.getB() << ") at (" << x << ", " << y << ")" << std::endl;
+	Canvas image = camera.render(scene);
 
-				canvas.setPixelColour(x, y, colour);
-			}
-		}
-	}
-
-	writer.writeFile("sphereWithLighting.ppm", canvas);
+	writer.writeFile("renders/properScene.ppm", image);
 }

@@ -11,6 +11,7 @@ private:
 	Vector direction;
 
 public:
+	Ray() : origin(Point()), direction(Vector()) {}
 	Ray(Point const& newOrigin, Vector const& newDirection) : origin(newOrigin), direction(newDirection) {}
 
 	Point getOrigin() const { return origin; }

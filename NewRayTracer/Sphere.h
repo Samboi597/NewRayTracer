@@ -2,7 +2,7 @@
 
 #include <memory>
 #include <vector>
-#include "Intersection.h"
+#include "Intersections.h"
 #include "Ray.h"
 #include "Shape.h"
 
@@ -21,6 +21,6 @@ public:
 	Point getCenter() const override { return center; }
 	float getRadius() const override { return radius; }
 
-	void intersect(Ray const& ray, vector<Intersection>& xs) const;
+	void intersect(Ray const& ray, Intersections &xs) const override;
 	Vector normalAt(Point const& point) const override;
 };

@@ -1,6 +1,6 @@
 #include "Sphere.h"
 
-void Sphere::intersect(Ray const& ray, vector<Intersection>& xs) const
+void Sphere::intersect(Ray const& ray, Intersections &xs) const
 {
 	Ray transformedRay = ray.transform(getTransform().inverse());
 

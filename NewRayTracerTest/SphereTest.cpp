@@ -15,66 +15,66 @@ namespace SphereTest
 		{
 			Ray r(Point(0.0f, 0.0f, -5.0f), Vector(0.0f, 0.0f, 1.0f));
 			shared_ptr<Sphere> s = make_shared<Sphere>();
-			vector<Intersection> xs;
+			Intersections xs;
 
 			s->intersect(r, xs);
 
-			Assert::AreEqual(2, (int)xs.size());
-			Assert::AreEqual(4.0f, xs[0].getT(), EPSILON_TEST);
-			Assert::AreEqual(6.0f, xs[1].getT(), EPSILON_TEST);
+			Assert::AreEqual(2, xs.getCount());
+			Assert::AreEqual(4.0f, xs.getIntersection(0).getT(), EPSILON_TEST);
+			Assert::AreEqual(6.0f, xs.getIntersection(1).getT(), EPSILON_TEST);
 
-			Assert::IsTrue(s == xs[0].getObject());
-			Assert::IsTrue(s == xs[1].getObject());
+			Assert::IsTrue(s == xs.getIntersection(0).getObject());
+			Assert::IsTrue(s == xs.getIntersection(1).getObject());
 		}
 
 		TEST_METHOD(TestRayIntersectionWithSphereAtTangent)
 		{
 			Ray r(Point(0.0f, 1.0f, -5.0f), Vector(0.0f, 0.0f, 1.0f));
 			shared_ptr<Sphere> s = make_shared<Sphere>();
-			vector<Intersection> xs;
+			Intersections xs;
 
 			s->intersect(r, xs);
 
-			Assert::AreEqual(2, (int)xs.size());
-			Assert::AreEqual(5.0f, xs[0].getT(), EPSILON_TEST);
-			Assert::AreEqual(5.0f, xs[1].getT(), EPSILON_TEST);
+			Assert::AreEqual(2, xs.getCount());
+			Assert::AreEqual(5.0f, xs.getIntersection(0).getT(), EPSILON_TEST);
+			Assert::AreEqual(5.0f, xs.getIntersection(1).getT(), EPSILON_TEST);
 		}
 
 		TEST_METHOD(TestRayNotIntersectionWithSphere)
 		{
 			Ray r(Point(0.0f, 2.0f, -5.0f), Vector(0.0f, 0.0f, 1.0f));
 			Sphere s;
-			vector<Intersection> xs;
+			Intersections xs;
 
 			s.intersect(r, xs);
 
-			Assert::AreEqual(0, (int)xs.size());
+			Assert::AreEqual(0, xs.getCount());
 		}
 
 		TEST_METHOD(TestRayIntersectionFromInsideSphere)
 		{
 			Ray r(Point(0.0f, 0.0f, 0.0f), Vector(0.0f, 0.0f, 1.0f));
 			shared_ptr<Sphere> s = make_shared<Sphere>();
-			vector<Intersection> xs;
+			Intersections xs;
 
 			s->intersect(r, xs);
 
-			Assert::AreEqual(2, (int)xs.size());
-			Assert::AreEqual(-1.0f, xs[0].getT(), EPSILON_TEST);
-			Assert::AreEqual(1.0f, xs[1].getT(), EPSILON_TEST);
+			Assert::AreEqual(2, xs.getCount());
+			Assert::AreEqual(-1.0f, xs.getIntersection(0).getT(), EPSILON_TEST);
+			Assert::AreEqual(1.0f, xs.getIntersection(1).getT(), EPSILON_TEST);
 		}
 
 		TEST_METHOD(TestRayIntersectionBehindSphere)
 		{
 			Ray r(Point(0.0f, 0.0f, 5.0f), Vector(0.0f, 0.0f, 1.0f));
 			shared_ptr<Sphere> s = make_shared<Sphere>();
-			vector<Intersection> xs;
+			Intersections xs;
 
 			s->intersect(r, xs);
 
-			Assert::AreEqual(2, (int)xs.size());
-			Assert::AreEqual(-6.0f, xs[0].getT(), EPSILON_TEST);
-			Assert::AreEqual(-4.0f, xs[1].getT(), EPSILON_TEST);
+			Assert::AreEqual(2, xs.getCount());
+			Assert::AreEqual(-6.0f, xs.getIntersection(0).getT(), EPSILON_TEST);
+			Assert::AreEqual(-4.0f, xs.getIntersection(1).getT(), EPSILON_TEST);
 		}
 
 		TEST_METHOD(TestSphereDefaultTransformation)
@@ -102,13 +102,13 @@ namespace SphereTest
 
 			s->setTransform(m);
 
-			vector<Intersection> xs;
+			Intersections xs;
 
 			s->intersect(r, xs);
 
-			Assert::AreEqual(2, (int)xs.size());
-			Assert::AreEqual(3.0f, xs[0].getT(), EPSILON_TEST);
-			Assert::AreEqual(7.0f, xs[1].getT(), EPSILON_TEST);
+			Assert::AreEqual(2, xs.getCount());
+			Assert::AreEqual(3.0f, xs.getIntersection(0).getT(), EPSILON_TEST);
+			Assert::AreEqual(7.0f, xs.getIntersection(1).getT(), EPSILON_TEST);
 		}
 
 		TEST_METHOD(TestSphereTranslatedWithRay)
@@ -119,11 +119,11 @@ namespace SphereTest
 
 			s->setTransform(m);
 
-			vector<Intersection> xs;
+			Intersections xs;
 
 			s->intersect(r, xs);
 
-			Assert::AreEqual(0, (int)xs.size());
+			Assert::AreEqual(0, xs.getCount());
 		}
 
 		TEST_METHOD(TestSphereNormalAtPointOnXAxis)
@@ -221,10 +221,7 @@ namespace SphereTest
 
 			Material m = s->getMaterial();
 
-			Assert::AreEqual(1.0f, m.getColour().getR(), EPSILON_TEST);
-			Assert::AreEqual(1.0f, m.getColour().getG(), EPSILON_TEST);
-			Assert::AreEqual(1.0f, m.getColour().getB(), EPSILON_TEST);
-
+			Assert::IsTrue(m.getColour() == Colour(1.0f, 1.0f, 1.0f));
 			Assert::AreEqual(0.1f, m.getAmbient(), EPSILON_TEST);
 			Assert::AreEqual(0.9f, m.getDiffuse(), EPSILON_TEST);
 			Assert::AreEqual(0.9f, m.getSpecular(), EPSILON_TEST);

@@ -1,5 +1,5 @@
 #pragma once
-#include "Tuple.h"
+#include "Point.h"
 #include <vector>
 
 using namespace std;
@@ -114,4 +114,26 @@ static Matrix shearing(float const& xy, float const& xz, float const& yx, float 
 	result.set(2, 1, zy);
 
 	return result;
+}
+
+static Matrix viewTransform(Point const& from, Point const& to, Vector const& up)
+{
+	Vector forward = (to - from).normalise();
+	Vector upon = up.normalise();
+	Vector left = forward.cross(upon);
+	Vector trueUp = left.cross(forward);
+
+	Matrix orientation(4, 4);
+	orientation.set(0, 0, left.getX());
+	orientation.set(0, 1, left.getY());
+	orientation.set(0, 2, left.getZ());
+	orientation.set(1, 0, trueUp.getX());
+	orientation.set(1, 1, trueUp.getY());
+	orientation.set(1, 2, trueUp.getZ());
+	orientation.set(2, 0, -forward.getX());
+	orientation.set(2, 1, -forward.getY());
+	orientation.set(2, 2, -forward.getZ());
+	orientation.set(3, 3, 1.0f);
+
+	return orientation * translation(-from.getX(), -from.getY(), -from.getZ());
 }

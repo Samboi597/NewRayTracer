@@ -1,9 +1,11 @@
 #pragma once
 
 #include <memory>
-#include "Point.h"
-#include "Matrix.h"
+#include <vector>
 #include "Material.h"
+#include "Ray.h"
+
+class Intersections;
 
 using namespace std;
 
@@ -16,10 +18,11 @@ protected:
 public:
 	Shape() : transform(identity(4)) {}
 
-	virtual Point getCenter() const = 0;
-	virtual float getRadius() const = 0;
+	virtual Point getCenter() const { return Point(0.0f, 0.0f, 0.0f); }
+	virtual float getRadius() const { return 1.0f; }
 
-	virtual Vector normalAt(Point const& point) const = 0;
+	virtual Vector normalAt(Point const& point) const { return Vector(0.0f, 0.0f, 0.0f); }
+	virtual void intersect(Ray const& ray, Intersections &xs) const = 0;
 
 	Matrix getTransform() const { return transform; }
 	void setTransform(Matrix const& newTransform) { transform = newTransform; }

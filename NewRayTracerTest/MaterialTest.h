@@ -15,10 +15,7 @@ namespace MaterialTest
 		{
 			Material material;
 
-			Assert::AreEqual(1.0f, material.getColour().getR(), EPSILON_TEST);
-			Assert::AreEqual(1.0f, material.getColour().getG(), EPSILON_TEST);
-			Assert::AreEqual(1.0f, material.getColour().getB(), EPSILON_TEST);
-
+			Assert::IsTrue(material.getColour() == Colour(1.0f, 1.0f, 1.0f));
 			Assert::AreEqual(0.1f, material.getAmbient(), EPSILON_TEST);
 			Assert::AreEqual(0.9f, material.getDiffuse(), EPSILON_TEST);
 			Assert::AreEqual(0.9f, material.getSpecular(), EPSILON_TEST);
@@ -36,9 +33,7 @@ namespace MaterialTest
 
 			Colour result = material.lighting(light.getPosition(), light.getIntensity(), position, eyeV, normalV);
 
-			Assert::AreEqual(1.9f, result.getR(), EPSILON_TEST);
-			Assert::AreEqual(1.9f, result.getG(), EPSILON_TEST);
-			Assert::AreEqual(1.9f, result.getB(), EPSILON_TEST);
+			Assert::IsTrue(result == Colour(1.9f, 1.9f, 1.9f));
 		}
 
 		TEST_METHOD(TestMaterialLightingEyeBetweenLightAndSurfaceEye45DegreesOffset)
@@ -51,9 +46,8 @@ namespace MaterialTest
 			PointLight light(Point(0.0f, 0.0f, -10.0f), Colour(1.0f, 1.0f, 1.0f));
 
 			Colour result = material.lighting(light.getPosition(), light.getIntensity(), position, eyeV, normalV);
-			Assert::AreEqual(1.0f, result.getR(), EPSILON_TEST);
-			Assert::AreEqual(1.0f, result.getG(), EPSILON_TEST);
-			Assert::AreEqual(1.0f, result.getB(), EPSILON_TEST);
+			
+			Assert::IsTrue(result == Colour(1.0f, 1.0f, 1.0f));
 		}
 
 		TEST_METHOD(TestMaterialLightingEyeOppositeSurfaceLight45DegreesOffset)
@@ -96,9 +90,8 @@ namespace MaterialTest
 			PointLight light(Point(0.0f, 0.0f, 10.0f), Colour(1.0f, 1.0f, 1.0f));
 
 			Colour result = material.lighting(light.getPosition(), light.getIntensity(), position, eyeV, normalV);
-			Assert::AreEqual(0.1f, result.getR(), EPSILON_TEST);
-			Assert::AreEqual(0.1f, result.getG(), EPSILON_TEST);
-			Assert::AreEqual(0.1f, result.getB(), EPSILON_TEST);
+			
+			Assert::IsTrue(result == Colour(0.1f, 0.1f, 0.1f));
 		}
 	};
 }

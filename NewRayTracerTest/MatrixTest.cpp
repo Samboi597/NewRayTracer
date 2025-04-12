@@ -610,5 +610,67 @@ namespace MatrixTest
 
 			Assert::IsTrue(Point(2.0f, 3.0f, 7.0f) == transform * point);
 		}
+
+		TEST_METHOD(TestMatrixViewTransformDefault)
+		{
+			Point from(0.0f, 0.0f, 0.0f);
+			Point to(0.0f, 0.0f, -1.0f);
+			Vector up(0.0f, 1.0f, 0.0f);
+
+			Matrix transform = viewTransform(from, to, up);
+
+			Assert::IsTrue(identity(4) == transform);
+		}
+
+		TEST_METHOD(TestMatrixViewTransformScaling)
+		{
+			Point from(0.0f, 0.0f, 0.0f);
+			Point to(0.0f, 0.0f, 1.0f);
+			Vector up(0.0f, 1.0f, 0.0f);
+
+			Matrix transform = viewTransform(from, to, up);
+
+			Assert::IsTrue(scaling(-1.0f, 1.0f, -1.0f) == transform);
+		}
+
+		TEST_METHOD(TestMatrixViewTransformTranslation)
+		{
+			Point from(0.0f, 0.0f, 0.0f);
+			Point to(0.0f, 0.0f, 0.0f);
+			Vector up(0.0f, 1.0f, 0.0f);
+
+			Matrix transform = viewTransform(from, to, up);
+
+			Assert::IsTrue(translation(0.0f, 0.0f, -8.0f) == transform);
+		}
+
+		TEST_METHOD(TestMatrixAbritraryViewTransform)
+		{
+			Point from(1.0f, 3.0f, 2.0f);
+			Point to(4.0f, -2.0f, 8.0f);
+			Vector up(1.0f, 1.0f, 0.0f);
+
+			Matrix transform = viewTransform(from, to, up);
+
+			Assert::AreEqual(-0.50709f, transform.get(0, 0), EPSILON_TEST);
+			Assert::AreEqual(0.50709f, transform.get(0, 1), EPSILON_TEST);
+			Assert::AreEqual(0.67612f, transform.get(0, 2), EPSILON_TEST);
+			Assert::AreEqual(-2.36643f, transform.get(0, 3), EPSILON_TEST);
+
+			Assert::AreEqual(0.76772f, transform.get(1, 0), EPSILON_TEST);
+			Assert::AreEqual(0.60609f, transform.get(1, 1), EPSILON_TEST);
+			Assert::AreEqual(0.12122f, transform.get(1, 2), EPSILON_TEST);
+			Assert::AreEqual(-2.82843f, transform.get(1, 3), EPSILON_TEST);
+
+			Assert::AreEqual(-0.35857f, transform.get(2, 0), EPSILON_TEST);
+			Assert::AreEqual(0.59761f, transform.get(2, 1), EPSILON_TEST);
+			Assert::AreEqual(-0.71714f, transform.get(2, 2), EPSILON_TEST);
+			Assert::AreEqual(0.0f, transform.get(2, 3), EPSILON_TEST);
+
+			Assert::AreEqual(0.0f, transform.get(3, 0), EPSILON_TEST);
+			Assert::AreEqual(0.0f, transform.get(3, 1), EPSILON_TEST);
+			Assert::AreEqual(0.0f, transform.get(3, 2), EPSILON_TEST);
+			Assert::AreEqual(1.0f, transform.get(3, 3), EPSILON_TEST);
+		}
 	};
 }

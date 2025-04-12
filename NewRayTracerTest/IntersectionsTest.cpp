@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "CppUnitTest.h"
+#include "Intersection.cpp"
 #include "Intersections.cpp"
 #include "Sphere.h"
 
@@ -91,6 +92,46 @@ namespace IntersectionsTest
 
 			Assert::IsTrue(xs.getHit().has_value());
 			Assert::AreEqual(2.0f, xs.getHit().getT(), EPSILON_TEST);
+		}
+
+		TEST_METHOD(TestIntersectionPrecomputing)
+		{
+			Ray r(Point(0.0f, 0.0f, -5.0f), Vector(0.0f, 0.0f, 1.0f));
+			shared_ptr<Sphere> s = make_shared<Sphere>();
+			Intersection xs(4.0f, s);
+
+			xs.prepareComputations(r);
+
+			Assert::AreEqual(4.0f, xs.getT(), EPSILON_TEST);
+
+			Assert::IsTrue(Point(0.0f, 0.0f, 0.0f) == xs.getObject()->getCenter());
+			Assert::AreEqual(1.0f, xs.getObject()->getRadius(), EPSILON_TEST);
+
+			Assert::IsTrue(Point(0.0f, 0.0f, -1.0f) == xs.getPoint());
+			Assert::IsTrue(Vector(0.0f, 0.0f, -1.0f) == xs.getEyeV());
+			Assert::IsTrue(Vector(0.0f, 0.0f, -1.0f) == xs.getNormalV());
+		}
+
+		TEST_METHOD(TestIntersectionOccursOutside)
+		{
+			Ray r(Point(0.0f, 0.0f, -5.0f), Vector(0.0f, 0.0f, 1.0f));
+			shared_ptr<Sphere> s = make_shared<Sphere>();
+			Intersection xs(4.0f, s);
+
+			xs.prepareComputations(r);
+
+			Assert::IsTrue(xs.isInside() == false);
+		}
+
+		TEST_METHOD(TestIntersectionOccursInside)
+		{
+			Ray r(Point(0.0f, 0.0f, 0.0f), Vector(0.0f, 0.0f, 1.0f));
+			shared_ptr<Sphere> s = make_shared<Sphere>();
+			Intersection xs(1.0f, s);
+
+			xs.prepareComputations(r);
+
+			Assert::IsTrue(xs.isInside() == true);
 		}
 	};
 }

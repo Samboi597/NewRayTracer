@@ -156,6 +156,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CameraTest.cpp" />
     <ClCompile Include="CanvasTest.cpp" />
     <ClCompile Include="ColourTest.cpp" />
     <ClCompile Include="IntersectionsTest.cpp" />
@@ -171,6 +172,7 @@
     <ClCompile Include="PointTest.cpp" />
     <ClCompile Include="PPMWriterTest.cpp" />
     <ClCompile Include="RayTest.cpp" />
+    <ClCompile Include="SceneTest.cpp" />
     <ClCompile Include="SphereTest.cpp" />
     <ClCompile Include="VectorTest.cpp" />
   </ItemGroup>

@@ -6,6 +6,7 @@ class Point :
     public Tuple
 {
 public:
+	Point() : Tuple(0.0f, 0.0f, 0.0f, 1.0f) {}
     Point(float const &newX, float const &newY, float const &newZ) : Tuple(newX, newY, newZ, 1.0f) {}
 	Point(Tuple const& tuple) : Tuple(tuple.getX(), tuple.getY(), tuple.getZ(), 1.0f) {}
 

@@ -17,6 +17,8 @@ public:
 	Colour operator*(float const &scalar) const { return Colour(r * scalar, g * scalar, b * scalar); }
 	Colour operator*(Colour const &colour) const { return Colour(r * colour.getR(), g * colour.getG(), b * colour.getB()); }
 
+	bool operator==(Colour const& other) const { return r == other.getR() && g == other.getG() && b == other.getB(); }
+
 	float getR() const { return r; }
 	float getG() const { return g; }
 	float getB() const { return b; }
