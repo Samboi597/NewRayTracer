@@ -42,6 +42,6 @@ public:
 
 	void setTransform(Matrix const& newTransform) { transform = newTransform; }
 
-	Ray rayForPixel(int const& x, int const& y) const;
+	Ray rayForPixel(float const& x, float const& y) const;
 	Canvas render(Scene const& scene) const;
 };

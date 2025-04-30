@@ -35,7 +35,7 @@ namespace CameraTest
 
 		TEST_METHOD(TestCameraRayThroughImageCentre)
 		{
-			Camera c(201, 101, PI / 2);
+			Camera c(200, 100, PI / 2);
 
 			Ray r = c.rayForPixel(100, 50);
 
@@ -49,7 +49,7 @@ namespace CameraTest
 		{
 			Camera c(201, 101, PI / 2);
 
-			Ray r = c.rayForPixel(0, 0);
+			Ray r = c.rayForPixel(0.5, 0.5);
 
 			Assert::IsTrue(Point(0, 0, 0) == r.getOrigin());
 			Assert::AreEqual(0.66519f, r.getDirection().getX(), EPSILON_TEST);
@@ -59,7 +59,7 @@ namespace CameraTest
 
 		TEST_METHOD(TestCameraRayWithTransformedCamera)
 		{
-			Camera c(201, 101, PI / 2);
+			Camera c(200, 100, PI / 2);
 
 			c.setTransform(rotationY(PI / 4) * translation(0.0f, -2.0f, 5.0f));
 			Ray r = c.rayForPixel(100, 50);
@@ -86,9 +86,9 @@ namespace CameraTest
 			Canvas image = c.render(scene);
 
 			Colour imageAt = image.getPixelColour(5, 5);
-			Assert::AreEqual(0.38066f, imageAt.getR(), EPSILON_TEST);
-			Assert::AreEqual(0.47583f, imageAt.getG(), EPSILON_TEST);
-			Assert::AreEqual(0.2855f, imageAt.getB(), EPSILON_TEST);
+			Assert::AreEqual(0.35631f, imageAt.getR(), EPSILON_TEST);
+			Assert::AreEqual(0.44538f, imageAt.getG(), EPSILON_TEST);
+			Assert::AreEqual(0.26724f, imageAt.getB(), EPSILON_TEST);
 		}
 	};
 }

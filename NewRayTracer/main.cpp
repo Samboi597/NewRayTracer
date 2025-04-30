@@ -63,5 +63,5 @@ int main() {
 
 	Canvas image = camera.render(scene);
 
-	writer.writeFile("renders/properScene.ppm", image);
+	writer.writeFile("renders/properSceneWithAA.ppm", image);
 }
